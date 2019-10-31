@@ -836,6 +836,11 @@ public final class Compiler {
     String aName = (project.getAName() == null) ? DEFAULT_APP_NAME : cleanName(project.getAName());
     LOG.log(Level.INFO, "VCode: " + project.getVCode());
     LOG.log(Level.INFO, "VName: " + project.getVName());
+    
+    String userApplicationPackage = (project.getApplicationPackage() == null) ? "" : project.getApplicationPackage().trim();
+        userApplicationPackage = userApplicationPackage.trim();
+        userApplicationPackage = userApplicationPackage.isEmpty()?packageName:userApplicationPackage;
+        LOG.log(Level.INFO, "=====>userApplicationPackage / acutal package: " + userApplicationPackage + "/" + project.getApplicationPackage());
 
     // TODO(user): Use com.google.common.xml.XmlWriter
     try {
@@ -846,7 +851,7 @@ public final class Compiler {
       // more info.
       out.write("<manifest " +
           "xmlns:android=\"http://schemas.android.com/apk/res/android\" " +
-          "package=\"" + packageName + "\" " +
+          "package=\"" + userApplicationPackage + "\" " +
           // TODO(markf): uncomment the following line when we're ready to enable publishing to the
           // Android Market.
           "android:versionCode=\"" + vCode +"\" " + "android:versionName=\"" + vName + "\" " +
@@ -1076,7 +1081,7 @@ public final class Compiler {
 
       out.write("      <provider\n");
       out.write("         android:name=\"android.support.v4.content.FileProvider\"\n");
-      out.write("         android:authorities=\"" + packageName + ".provider\"\n");
+      out.write("         android:authorities=\"" + userApplicationPackage + ".provider\"\n");
       out.write("         android:exported=\"false\"\n");
       out.write("         android:grantUriPermissions=\"true\">\n");
       out.write("         <meta-data\n");
