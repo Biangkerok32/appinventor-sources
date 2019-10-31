@@ -1,6 +1,6 @@
 // -*- mode: java; c-basic-offset: 2; -*-
 // Copyright 2009-2011 Google, All Rights reserved
-// Copyright 2011-2012 MIT, All rights reserved
+// Copyright 2011-2019 MIT, All rights reserved
 // Released under the Apache License, Version 2.0
 // http://www.apache.org/licenses/LICENSE-2.0
 
@@ -24,6 +24,7 @@ public abstract class MockVisibleComponent extends MockComponent {
   // Common property names (not all components support all properties).
   protected static final String PROPERTY_NAME_TEXTALIGNMENT = "TextAlignment";
   protected static final String PROPERTY_NAME_BUTTONSHAPE= "Shape";
+  protected static final String PROPERTY_NAME_RECYCLERVIEW_ORIENTATION= "Orientation";
   protected static final String PROPERTY_NAME_BACKGROUNDCOLOR = "BackgroundColor";
   protected static final String PROPERTY_NAME_BACKGROUNDIMAGE = "BackgroundImage";
   protected static final String PROPERTY_NAME_THUMBCOLORACTIVE = "ThumbColorActive";
@@ -37,8 +38,13 @@ public abstract class MockVisibleComponent extends MockComponent {
   protected static final String PROPERTY_NAME_FONTTYPEFACE = "FontTypeface";
   protected static final String PROPERTY_NAME_TEXT = "Text";
   protected static final String PROPERTY_NAME_LISTVIEW = "ElementsFromString";
+  protected static final String PROPERTY_NAME_LISTVIEW_IMAGES = "Picture";
   protected static final String PROPERTY_NAME_SHOW_FILTER_BAR = "ShowFilterBar";
   protected static final String PROPERTY_NAME_TEXTCOLOR = "TextColor";
+
+  // to set color for secondary text of listview items
+
+  protected static final String PROPERTY_NAME_DETAILTEXTCOLOR = "DetailTextColor";
   protected static final String PROPERTY_NAME_CHECKED = "Checked"; // checkbox and radio button
   protected static final String PROPERTY_NAME_ON = "On"; // toggle switch
   protected static final String PROPERTY_NAME_HINT = "Hint";
@@ -48,6 +54,8 @@ public abstract class MockVisibleComponent extends MockComponent {
   protected static final String PROPERTY_NAME_HEIGHT = "Height";
   protected static final String PROPERTY_NAME_COLUMN = "Column";
   protected static final String PROPERTY_NAME_ROW = "Row";
+  protected static final String PROPERTY_NAME_LISTVIEW_ADD_DATA = "AddData";
+  protected static final String PROPERTY_NAME_LISTVIEW_LAYOUT = "ListViewLayout";
 
   // Note: the values below are duplicated in Component.java
   // If you change them here, change them there!
