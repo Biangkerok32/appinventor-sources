@@ -315,4 +315,36 @@ public class PropertyTypeConstants {
    * See {@link com.google.appinventor.client.editor.youngandroid.properties.YoungAndroidThemeChoicePropertyEditor}
    */
   public static final String PROPERTY_TYPE_THEME = "theme";
+
+  /**
+   * Chart types.
+   * @see
+   * com.google.appinventor.client.editor.youngandroid.properties.YoungAndroidChartTypeChoicePropertyEditor
+   */
+  public static final String PROPERTY_TYPE_CHART_TYPE = "chart_type";
+
+  /**
+   * DataFile columns
+   * @see
+   *  com.google.appinventor.client.editor.youngandroid.properties.YoungAndroidDataFileSelectorPropertyEditor
+   */
+  public static final String PROPERTY_TYPE_DATA_FILE_COLUMN = "data_file_column";
+
+  /**
+   * ChartData Data Source component
+   * @see
+   *  com.google.appinventor.client.editor.youngandroid.properties.YoungAndroidComponentSelectorPropertyEditor
+   */
+  public static final String PROPERTY_TYPE_CHART_DATA_SOURCE = "chart_data_source";
+
+  /**
+   * Chart Pie Chart radius
+   * @see
+   *  com.google.appinventor.client.editor.youngandroid.properties.YoungAndroidIntegerRangePropertyEditor
+   */
+  public static final String PROPERTY_TYPE_CHART_PIE_RADIUS = "chart_pie_radius";
+
+  public static final String PROPERTY_TYPE_CHART_POINT_SHAPE = "chart_point_shape";
+
+  public static final String PROPERTY_TYPE_CHART_LINE_TYPE = "chart_line_type";
 }

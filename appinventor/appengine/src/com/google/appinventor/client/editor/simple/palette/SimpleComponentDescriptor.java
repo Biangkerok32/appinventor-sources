@@ -12,6 +12,8 @@ import com.google.appinventor.client.editor.simple.SimpleComponentDatabase;
 import com.google.appinventor.client.editor.simple.SimpleEditor;
 import com.google.appinventor.client.editor.simple.components.MockBall;
 import com.google.appinventor.client.editor.simple.components.MockButton;
+import com.google.appinventor.client.editor.simple.components.MockChartData2D;
+import com.google.appinventor.client.editor.simple.components.MockDataFile;
 import com.google.appinventor.client.editor.simple.components.MockCanvas;
 import com.google.appinventor.client.editor.simple.components.MockCheckBox;
 import com.google.appinventor.client.editor.simple.components.MockSwitch;
@@ -50,6 +52,7 @@ import com.google.appinventor.client.editor.simple.components.MockTimePicker;
 import com.google.appinventor.client.editor.simple.components.MockVerticalArrangement;
 import com.google.appinventor.client.editor.simple.components.MockVideoPlayer;
 import com.google.appinventor.client.editor.simple.components.MockWebViewer;
+import com.google.appinventor.client.editor.simple.components.MockChart;
 
 import com.google.appinventor.shared.storage.StorageUtil;
 
@@ -380,6 +383,10 @@ public final class SimpleComponentDescriptor {
         return new MockFusionTablesControl(editor, name,
           getImageFromPath(SimpleComponentDatabase.getInstance(editor.getProjectId()).getIconName(name),
             null, editor.getProjectId()));
+      } else if (name.equals(MockDataFile.TYPE)) {
+        return new MockDataFile(editor, name,
+            getImageFromPath(SimpleComponentDatabase.getInstance(editor.getProjectId()).getIconName(name),
+                null, editor.getProjectId()));
       } else {
         String pkgName = type.contains(".") ? type.substring(0, type.lastIndexOf('.')) : null;
         return new MockNonVisibleComponent(editor, name,
@@ -456,6 +463,10 @@ public final class SimpleComponentDescriptor {
       return new MockRectangle(editor);
     } else if (name.equals(MockFeatureCollection.TYPE)) {
       return new MockFeatureCollection(editor);
+    } else if (name.equals(MockChart.TYPE)) {
+      return new MockChart(editor);
+    } else if (name.equals(MockChartData2D.TYPE)) {
+      return new MockChartData2D(editor);
     } else {
       // TODO(user): add 3rd party mock component proxy here
       throw new UnsupportedOperationException("unknown component: " + name);

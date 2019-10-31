@@ -11,7 +11,6 @@ import com.google.appinventor.components.annotations.DesignerComponent;
 import com.google.appinventor.components.annotations.DesignerProperty;
 import com.google.appinventor.components.annotations.PropertyCategory;
 import com.google.appinventor.components.annotations.SimpleEvent;
-import com.google.appinventor.components.annotations.SimpleFunction;
 import com.google.appinventor.components.annotations.SimpleObject;
 import com.google.appinventor.components.annotations.SimpleProperty;
 import com.google.appinventor.components.common.ComponentCategory;
@@ -34,6 +33,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -78,7 +78,8 @@ import java.util.Queue;
     iconName = "images/accelerometersensor.png")
 @SimpleObject
 public class AccelerometerSensor extends AndroidNonvisibleComponent
-    implements OnStopListener, OnResumeListener, SensorComponent, SensorEventListener, Deleteable {
+    implements OnStopListener, OnResumeListener, SensorComponent, SensorEventListener, Deleteable,
+    RealTimeChartDataSource<String, Float> {
 
   // Logging and Debugging
   private final static String LOG_TAG = "AccelerometerSensor";
@@ -125,6 +126,9 @@ public class AccelerometerSensor extends AndroidNonvisibleComponent
 
   // Used to launch Runnables on the UI Thread after a delay
   private final Handler androidUIHandler;
+
+  // Set of observers
+  private HashSet<ChartDataBase> dataSourceObservers = new HashSet<ChartDataBase>();
 
   /**
    * Creates a new AccelerometerSensor component.
@@ -226,6 +230,11 @@ public class AccelerometerSensor extends AndroidNonvisibleComponent
     addToSensorCache(X_CACHE, xAccel);
     addToSensorCache(Y_CACHE, yAccel);
     addToSensorCache(Z_CACHE, zAccel);
+
+    // Notify the Data Source observers with the updated values
+    notifyDataObservers("X", xAccel);
+    notifyDataObservers("Y", yAccel);
+    notifyDataObservers("Z", zAccel);
 
     long currentTime = System.currentTimeMillis();
 
@@ -483,6 +492,43 @@ public int getDeviceDefaultOrientation() {
   public void onDelete() {
     if (enabled) {
       stopListening();
+    }
+  }
+
+  @Override
+  public void addDataObserver(ChartDataBase dataComponent) {
+    dataSourceObservers.add(dataComponent);
+  }
+
+  @Override
+  public void removeDataObserver(ChartDataBase dataComponent) {
+    dataSourceObservers.remove(dataComponent);
+  }
+
+  @Override
+  public void notifyDataObservers(String key, Object value) {
+    // Notify each Chart Data observer component of the Data value change
+    for (ChartDataBase dataComponent : dataSourceObservers) {
+      dataComponent.onReceiveValue(this, key, value);
+    }
+  }
+
+  @Override
+  public Float getDataValue(String key) {
+    // TODO: Add documentation for X, Y and Z Data Source value names
+
+    switch (key) {
+      case "X":
+        return xAccel;
+
+      case "Y":
+        return yAccel;
+
+      case "Z":
+        return zAccel;
+
+      default:
+        return 0f;
     }
   }
 }

@@ -19,6 +19,7 @@ import com.google.appinventor.components.runtime.util.JsonUtil;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +60,8 @@ import org.json.JSONException;
     iconName = "images/tinyDB.png")
 
 @SimpleObject
-public class TinyDB extends AndroidNonvisibleComponent implements Component, Deleteable {
+public class TinyDB extends AndroidNonvisibleComponent implements Component, Deleteable,
+    ObservableChartDataSource<String, List> {
 
   public static final String DEFAULT_NAMESPACE="TinyDB1";
 
@@ -68,6 +70,11 @@ public class TinyDB extends AndroidNonvisibleComponent implements Component, Del
 
   private Context context;  // this was a local in constructor and final not private
 
+  // Set of observers
+  private HashSet<ChartDataBase> dataSourceObservers = new HashSet<ChartDataBase>();
+
+  // SharedPreferences listener used to notify observers
+  private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener;
 
   /**
    * Creates a new TinyDB component.
@@ -85,6 +92,23 @@ public class TinyDB extends AndroidNonvisibleComponent implements Component, Del
   public void Namespace(String namespace) {
     this.namespace = namespace;
     sharedPreferences = context.getSharedPreferences(namespace, Context.MODE_PRIVATE);
+
+    // SharedPreferences listener currently exists; Unregister it
+    if (sharedPreferenceChangeListener != null) {
+      sharedPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
+
+    // Create a new SharedPreferences change listener
+    sharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+      @Override
+      public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        // Upon value change, notify the observers with the key and the value
+        notifyDataObservers(key, GetValue(key, null));
+      }
+    };
+
+    // Register the SharedPreferences change listener
+    sharedPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
   }
 
   @SimpleProperty(description = "Namespace for storing data.")
@@ -156,6 +180,7 @@ public class TinyDB extends AndroidNonvisibleComponent implements Component, Del
     final SharedPreferences.Editor sharedPrefsEditor = sharedPreferences.edit();
     sharedPrefsEditor.clear();
     sharedPrefsEditor.commit();
+    notifyDataObservers(null, null); // Notify observers with null value to be interpreted as clear
   }
 
   /**
@@ -175,5 +200,46 @@ public class TinyDB extends AndroidNonvisibleComponent implements Component, Del
     final SharedPreferences.Editor sharedPrefsEditor = sharedPreferences.edit();
     sharedPrefsEditor.clear();
     sharedPrefsEditor.commit();
+    notifyDataObservers(null, null); // Notify observers with null value to be interpreted as clear
+  }
+
+  /**
+   * Returns the specified List object identified by the key. If the
+   * value is not a List object, or it does not exist, an empty List
+   * is returned.
+   *
+   * @param key  Key of the value to retrieve
+   * @return  value as a List object, or empty List if not applicable
+   */
+  @Override
+  public List getDataValue(String key) {
+    // Get the value from the TinyDB data with the specified key
+    Object value = GetValue(key, new ArrayList());
+
+    // Check if value is of type List, and return it if that is the case.
+    if (value instanceof List) {
+      return (List)value;
+    }
+
+    // Default option (could not parse data): return empty ArrayList
+    return new ArrayList();
+  }
+
+  @Override
+  public void addDataObserver(ChartDataBase dataComponent) {
+    dataSourceObservers.add(dataComponent);
+  }
+
+  @Override
+  public void removeDataObserver(ChartDataBase dataComponent) {
+    dataSourceObservers.remove(dataComponent);
+  }
+
+  @Override
+  public void notifyDataObservers(String key, Object newValue) {
+    // Notify each Chart Data observer component of the Data value change
+    for (ChartDataBase dataComponent : dataSourceObservers) {
+      dataComponent.onDataSourceValueChange(this, key, newValue);
+    }
   }
 }
