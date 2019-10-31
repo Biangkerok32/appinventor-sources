@@ -26,6 +26,10 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.codehaus.jettison.json.JSONTokener;
 
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -778,6 +782,43 @@ public final class Compiler {
     return true;
   }
 
+  // Writes ic_launcher.xml to initialize adaptive icon
+  private boolean writeICLauncher(File adaptiveIconFile) {
+    String mainClass = project.getMainClass();
+    String packageName = Signatures.getPackageName(mainClass);
+    try {
+      BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(adaptiveIconFile), "UTF-8"));
+      out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+      out.write("<adaptive-icon " + "xmlns:android=\"http://schemas.android.com/apk/res/android\" " + ">\n");
+      out.write("<background android:drawable=\"@color/ic_launcher_background\" />\n");
+      out.write("<foreground android:drawable=\"@drawable/ya\" />\n");
+      out.write("</adaptive-icon>\n");
+      out.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+      userErrors.print(String.format(ERROR_IN_STAGE, "ic launcher"));
+      return false;
+    }
+    return true;
+  }
+
+  // Writes ic_launcher_background.xml to indicate background color of adaptive icon
+  private boolean writeICLauncherBackground(File icBackgroundFile) {
+    try {
+      BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(icBackgroundFile), "UTF-8"));
+      out.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+      out.write("<resources>\n");
+      out.write("<color name=\"ic_launcher_background\">#000000</color>\n");
+      out.write("</resources>\n");
+      out.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+      userErrors.print(String.format(ERROR_IN_STAGE, "ic launcher background"));
+      return false;
+    }
+    return true;
+  }
+
   /*
    * Creates an AndroidManifest.xml file needed for the Android application.
    */
@@ -891,7 +932,8 @@ public final class Compiler {
         out.write("android:label=\"" + aName + "\" ");
       }
       out.write("android:networkSecurityConfig=\"@xml/network_security_config\" ");
-      out.write("android:icon=\"@drawable/ya\" ");
+      out.write("android:icon=\"@mipmap/ic_launcher\" ");
+      out.write("android:roundIcon=\"@mipmap/ic_launcher\" ");
       if (isForCompanion) {              // This is to hook into ACRA
         out.write("android:name=\"com.google.appinventor.components.runtime.ReplApplication\" ");
       } else {
@@ -1103,7 +1145,21 @@ public final class Compiler {
     out.println("________Preparing application icon");
     File resDir = createDir(buildDir, "res");
     File drawableDir = createDir(resDir, "drawable");
-    if (!compiler.prepareApplicationIcon(new File(drawableDir, "ya.png"))) {
+
+    // Create mipmap directories
+    File mipmapV26 = createDir(resDir, "mipmap-anydpi-v26");
+    File mipmapHdpi = createDir(resDir,"mipmap-hdpi");
+    File mipmapMdpi = createDir(resDir,"mipmap-mdpi");
+    File mipmapXhdpi = createDir(resDir,"mipmap-xhdpi");
+    File mipmapXxhdpi = createDir(resDir,"mipmap-xxhdpi");
+    File mipmapXxxhdpi = createDir(resDir,"mipmap-xxxhdpi");
+
+    // Create list of mipmaps for all icon types with respective sizes
+    List<File> mipmapDirectoriesForIcons = Arrays.asList(mipmapMdpi, mipmapHdpi, mipmapXhdpi, mipmapXxhdpi, mipmapXxxhdpi);
+    List<Integer> standardICSizesForMipmaps = Arrays.asList(48,72,96,144,192);
+    List<Integer> foregroundICSizesForMipmaps = Arrays.asList(108,162,216,324,432);
+
+    if (!compiler.prepareApplicationIcon(new File(drawableDir, "ya.png"), mipmapDirectoriesForIcons, standardICSizesForMipmaps, foregroundICSizesForMipmaps)) {
       return false;
     }
     if (reporter != null) {
@@ -1140,6 +1196,20 @@ public final class Compiler {
 
     out.println("________Creating network_security_config xml");
     if (!compiler.createNetworkConfigXml(providerDir)) {
+      return false;
+    }
+
+    // Generate ic_launcher.xml
+    out.println("________Generating adaptive icon file");
+    File icLauncher = new File(mipmapV26, "ic_launcher.xml");
+    if (!compiler.writeICLauncher(icLauncher)) {
+      return false;
+    }
+
+    // Generate ic_launcher_background.xml
+    out.println("________Generating adaptive icon background file");
+    File icBackgroundColor = new File(styleDir, "ic_launcher_background.xml");
+    if (!compiler.writeICLauncherBackground(icBackgroundColor)) {
       return false;
     }
 
@@ -1628,9 +1698,46 @@ public final class Compiler {
   }
 
   /*
+   * Returns a resized image given a new width and height
+   */
+  private BufferedImage resizeImage(BufferedImage icon, int height, int width) {
+    Image tmp = icon.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    BufferedImage finalResized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2 = finalResized.createGraphics();
+    g2.drawImage(tmp, 0, 0, null);
+    return finalResized;
+  }
+
+  /*
+   * Creates the circle image of an icon
+   */
+  private BufferedImage produceRoundIcon(BufferedImage icon) {
+    int imageWidth = icon.getWidth();
+    BufferedImage roundIcon = new BufferedImage(imageWidth, imageWidth, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2 = roundIcon.createGraphics();
+    g2.setClip(new Ellipse2D.Float(0, 0, imageWidth, imageWidth));
+    g2.drawImage(icon, 0, 0, imageWidth, imageWidth, null);
+    return roundIcon;
+  }
+
+  /*
+   * Creates the image of an icon with rounded corners
+   */
+  private BufferedImage produceRoundedCornerIcon(BufferedImage icon) {
+    int imageWidth = icon.getWidth();
+    // Corner radius of roundedCornerIcon needs to be 1/12 of width according to Android material guidelines
+    float cornerRadius = imageWidth / 12;
+    BufferedImage roundedCornerIcon = new BufferedImage(imageWidth, imageWidth, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2 = roundedCornerIcon.createGraphics();
+    g2.setClip(new RoundRectangle2D.Float(0, 0, imageWidth, imageWidth, cornerRadius, cornerRadius));
+    g2.drawImage(icon, 0, 0, imageWidth, imageWidth, null);
+    return roundedCornerIcon;
+  }
+
+  /*
    * Loads the icon for the application, either a user provided one or the default one.
    */
-  private boolean prepareApplicationIcon(File outputPngFile) {
+  private boolean prepareApplicationIcon(File outputPngFile, List<File> mipmapDirectories, List<Integer> standardICSizes, List<Integer> foregroundICSizes) {
     String userSpecifiedIcon = Strings.nullToEmpty(project.getIcon());
     try {
       BufferedImage icon;
@@ -1640,13 +1747,36 @@ public final class Compiler {
         if (icon == null) {
           // This can happen if the iconFile isn't an image file.
           // For example, icon is null if the file is a .wav file.
-          // TODO(lizlooney) - This happens if the user specifies a .ico file. We should fix that.
+          // TODO(lizlooney) - This happens if the user specifies a .ico file. We should
+          // fix that.
           userErrors.print(String.format(ICON_ERROR, userSpecifiedIcon));
           return false;
         }
       } else {
         // Load the default image.
         icon = ImageIO.read(Compiler.class.getResource(DEFAULT_ICON));
+      }
+
+      BufferedImage roundIcon = produceRoundIcon(icon);
+      BufferedImage roundRectIcon = produceRoundedCornerIcon(icon);
+
+      // For each mipmap directory, create all types of ic_launcher photos with respective mipmap sizes
+      for(int i=0; i < mipmapDirectories.size(); i++){
+        File mipmapDirectory = mipmapDirectories.get(i);
+        Integer standardSize = standardICSizes.get(i);
+        Integer foregroundSize = foregroundICSizes.get(i);
+
+        BufferedImage round = resizeImage(roundIcon,standardSize,standardSize);
+        BufferedImage roundRect = resizeImage(roundRectIcon,standardSize,standardSize);
+        BufferedImage foreground = resizeImage(icon,foregroundSize,foregroundSize);
+
+        File roundIconPng = new File(mipmapDirectory,"ic_launcher_round.png");
+        File roundRectIconPng = new File(mipmapDirectory,"ic_launcher.png");
+        File foregroundPng = new File(mipmapDirectory,"ic_launcher_foreground.png");
+
+        ImageIO.write(round, "png", roundIconPng);
+        ImageIO.write(roundRect, "png", roundRectIconPng);
+        ImageIO.write(foreground, "png", foregroundPng);
       }
       ImageIO.write(icon, "png", outputPngFile);
     } catch (Exception e) {
