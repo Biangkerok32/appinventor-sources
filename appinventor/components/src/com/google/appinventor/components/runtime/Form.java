@@ -252,6 +252,8 @@ public class Form extends AppInventorCompatActivity
   // It should be changed from 100000 to 65535 if the functionality to extend
   // FragmentActivity is added in future.
   public static final int MAX_PERMISSION_NONCE = 100000;
+  
+  private String userEmail = "";
 
   public static class PercentStorageRecord {
     public enum Dim {
@@ -293,6 +295,7 @@ public class Form extends AppInventorCompatActivity
 
     // Figure out the name of this form.
     String className = getClass().getName();
+    this.userEmail = className;
     int lastDot = className.lastIndexOf('.');
     formName = className.substring(lastDot + 1);
     Log.d(LOG_TAG, "Form " + formName + " got onCreate");
@@ -1816,6 +1819,12 @@ public class Form extends AppInventorCompatActivity
   public int AccentColor() {
     return accentColor;
   }
+      
+  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING, defaultValue = "")
+  @SimpleProperty(userVisible = false)  //Since displayed only on Screen1, don't make this visible
+  public void ApplicationPackage(String applicationPackage) {
+        // We don't actually need to do anything.
+  }
 
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_THEME,
       defaultValue = ComponentConstants.DEFAULT_THEME)
@@ -1927,7 +1936,30 @@ public class Form extends AppInventorCompatActivity
     Intent activityIntent = new Intent();
     // Note that the following is dependent on form generated class names being the same as
     // their form names and all forms being in the same package.
-    activityIntent.setClassName(this, getPackageName() + "." + nextFormName);
+    //activityIntent.setClassName(this, getPackageName() + "." + nextFormName);//remove
+        // ApplicationPackage updates
+        //
+        String fullyScrrenToOpen = "";
+        Log.i(LOG_TAG, "trying to get package name");
+
+        String packageName = getPackageName();  // this will be the actual package name that is in manifest.
+        Log.i(LOG_TAG, "package name is:" + packageName);
+
+        if (packageName.startsWith("com.ajian")) {
+            Log.i(LOG_TAG, "packageName started with com.ajian. Actual is:" + packageName);
+
+            fullyScrrenToOpen = packageName + "." + nextFormName;
+        } else {
+            // user has enterd custom package name. the should've entered the full
+            fullyScrrenToOpen = "com.aimod." + nextFormName;
+            Log.i(LOG_TAG, "packageName was changed; custom package, prefixing:" + fullyScrrenToOpen);
+
+        }
+
+        Log.i(LOG_TAG, "setting intent class to:" + fullyScrrenToOpen);
+
+        activityIntent.setClassName(this, fullyScrrenToOpen)
+
     String functionName = (startupValue == null) ? "open another screen" :
       "open another screen with start value";
     String jValue;
@@ -1942,14 +1974,14 @@ public class Form extends AppInventorCompatActivity
     // Save the nextFormName so that it can be passed to the OtherScreenClosed event in the
     // future.
     this.nextFormName = nextFormName;
-    Log.i(LOG_TAG, "about to start new form" + nextFormName);
+    Log.i(LOG_TAG, "about to start new form" + fullyScrrenToOpen);
     try {
       Log.i(LOG_TAG, "startNewForm starting activity:" + activityIntent);
       startActivityForResult(activityIntent, SWITCH_FORM_REQUEST_CODE);
       AnimationUtil.ApplyOpenScreenAnimation(this, openAnimType);
     } catch (ActivityNotFoundException e) {
       dispatchErrorOccurredEvent(this, functionName,
-          ErrorMessages.ERROR_SCREEN_NOT_FOUND, nextFormName);
+          ErrorMessages.ERROR_SCREEN_NOT_FOUND, fullyScrrenToOpen);
     }
   }
 
