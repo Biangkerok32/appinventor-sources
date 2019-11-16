@@ -320,6 +320,12 @@ public final class YoungAndroidFormUpgrader {
       } else if (componentType.equals("SpeechRecognizer")) {
         srcCompVersion = upgradeSpeechRecognizerProperties(componentProperties, srcCompVersion);
 
+      } else if (componentType.equals("Switch")) {
+        srcCompVersion = upgradeSwitchProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("TableArrangement")) {
+        srcCompVersion = upgradeTableArrangementProperties(componentProperties, srcCompVersion);
+
       } else if (componentType.equals("TimePicker")) {
         srcCompVersion = upgradeTimePickerProperties(componentProperties, srcCompVersion);
 
@@ -343,6 +349,42 @@ public final class YoungAndroidFormUpgrader {
 
       }  else if (componentType.equals("Notifier")) {
         srcCompVersion = upgradeNotifierProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("NxtColorSensor")) {
+        srcCompVersion = upgradeNxtColorSensorProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("NxtDirectCommands")) {
+        srcCompVersion = upgradeNxtDirectCommandsProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("NxtDrive")) {
+        srcCompVersion = upgradeNxtDriveProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("NxtLightSensor")) {
+        srcCompVersion = upgradeNxtLightSensorProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("NxtSoundSensor")) {
+        srcCompVersion = upgradeNxtSoundSensorProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("NxtTouchSensor")) {
+        srcCompVersion = upgradeNxtTouchSensorProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("NxtUltrasonicSensor")) {
+        srcCompVersion = upgradeNxtUltrasonicSensorProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("Ev3Motors")) {
+        srcCompVersion = upgradeEv3MotorsProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("Ev3ColorSensor")) {
+        srcCompVersion = upgradeEv3ColorSensorProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("Ev3GyroSensor")) {
+        srcCompVersion = upgradeEv3GyroSensorProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("Ev3TouchSensor")) {
+        srcCompVersion = upgradeEv3TouchSensorProperties(componentProperties, srcCompVersion);
+
+      } else if (componentType.equals("Ev3UltrasonicSensor")) {
+        srcCompVersion = upgradeEv3UltrasonicSensorProperties(componentProperties, srcCompVersion);
 
       } else if (componentType.equals("Twitter")) {
         srcCompVersion = upgradeTwitterProperties(componentProperties, srcCompVersion);
@@ -436,6 +478,10 @@ public final class YoungAndroidFormUpgrader {
       // The LegacyMode property was added
       // No properties need to be modified to upgrade to version 4.
       srcCompVersion = 4;
+    }
+    if (srcCompVersion < 5) {
+      // LegacyMode property made visible in block editor.
+      srcCompVersion = 5;
     }
     return srcCompVersion;
   }
@@ -647,6 +693,10 @@ public final class YoungAndroidFormUpgrader {
       // No properties need to be modified to upgrade to version 6.
       srcCompVersion = 6;
     }
+    if (srcCompVersion < 7) {
+      // TextAlignment, Shape, FontTypeface properties made visible in block editor.
+      srcCompVersion = 7;
+    }
     return srcCompVersion;
   }
 
@@ -740,6 +790,10 @@ public final class YoungAndroidFormUpgrader {
       // Properties related to this component have now been upgraded to version 2.
       srcCompVersion = 2;
     }
+    if (srcCompVersion < 3) {
+      // FontBold, FontItalic, FontTypeface properties made visible in block editor.
+      srcCompVersion = 3;
+    }
     return srcCompVersion;
   }
 
@@ -784,6 +838,10 @@ public final class YoungAndroidFormUpgrader {
       // No properties need to be modified to upgrade to version 6.
       srcCompVersion = 6;
     }
+    if (srcCompVersion < 7) {
+      // TextAlignment, Shape, FontTypeface properties made visible in block editor.
+      srcCompVersion = 7;
+    }
     return srcCompVersion;
   }
 
@@ -799,6 +857,10 @@ public final class YoungAndroidFormUpgrader {
       // No properties need to be modified to upgrade to version 3.
       srcCompVersion = 3;
     }
+    if (srcCompVersion < 4) {
+      // TextAlignment, Shape, FontTypeface properties made visible in block editor.
+      srcCompVersion = 4;
+    }
     return srcCompVersion;
   }
 
@@ -813,6 +875,10 @@ public final class YoungAndroidFormUpgrader {
     if (srcCompVersion < 3) {
       // RequestFocus function was added (via TextBoxBase)
       srcCompVersion = 3;
+    }
+    if (srcCompVersion < 4) {
+      // TextAlignment, FontBold, FontItalic, FontTypeface properties made visible in block editor.
+      srcCompVersion = 4; 
     }
     return srcCompVersion;
   }
@@ -1076,6 +1142,10 @@ public final class YoungAndroidFormUpgrader {
       // }
       srcCompVersion = 3;
     }
+    if (srcCompVersion < 4) {
+      // Added GetScalePictureToFit method
+      srcCompVersion = 4;
+    }
     return srcCompVersion;
   }
 
@@ -1101,6 +1171,10 @@ public final class YoungAndroidFormUpgrader {
       handlePropertyRename(componentProperties, "ImagePath", "Selection");
       // Properties related to this component have now been upgraded to version 2.
       srcCompVersion = 5;
+    }
+    if (srcCompVersion < 6) {
+      // TextAlignment, Shape, FontTypeface properties made visible in block editor.
+      srcCompVersion = 6;
     }
     return srcCompVersion;
   }
@@ -1149,6 +1223,10 @@ public final class YoungAndroidFormUpgrader {
     if (srcCompVersion < 5) {
       srcCompVersion = 5;
     }
+    if (srcCompVersion < 6) {
+      // TextAlignment,FontBold FontItalic, FontTypeface, HTMLFormat properties made visible in block editor.
+      srcCompVersion = 6;
+    }
     return srcCompVersion;
   }
 
@@ -1190,6 +1268,10 @@ public final class YoungAndroidFormUpgrader {
     if (srcCompVersion < 9) {
       // Added ItemTextColor, ItemBackgroundColor
       srcCompVersion = 9;
+    }
+    if (srcCompVersion < 10) {
+      // TextAlignment, Shape, FontTypeface properties made visible in block editor.
+      srcCompVersion = 10;
     }
     return srcCompVersion;
   }
@@ -1255,6 +1337,10 @@ public final class YoungAndroidFormUpgrader {
     if (srcCompVersion < 4) {
       // Added PasswordVisible Property
       srcCompVersion = 4;
+    }
+    if (srcCompVersion < 5) {
+      // TextAlignment, FontBold, FontItalic, FontTypeface properties made visible in block editor.
+      srcCompVersion = 5;
     }
     return srcCompVersion;
   }
@@ -1325,6 +1411,10 @@ public final class YoungAndroidFormUpgrader {
         // Properties related to this component have now been upgraded to version  6.
         srcCompVersion = 6;
       }
+    if (srcCompVersion < 7) {
+      // Added GetVolume method
+      srcCompVersion = 7;
+    }
     return srcCompVersion;
   }
 
@@ -1364,6 +1454,23 @@ public final class YoungAndroidFormUpgrader {
     return srcCompVersion;
   }
 
+  private static int upgradeSwitchProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // FontBold, FontItalic, FontTypeface properties made visible in block editor.
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeTableArrangementProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Columns, Rows properties made visible in block editor.
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
 
   private static int upgradeTimePickerProperties(Map<String, JSONValue> componentProperties,
       int srcCompVersion) {
@@ -1376,6 +1483,10 @@ public final class YoungAndroidFormUpgrader {
       // SetTimeToDisplayFromInstant, and Instant property are added.
       // No properties need to be modified to upgrade to version 3.
       srcCompVersion = 3;
+    }
+    if (srcCompVersion < 4) {
+      // TextAlignment, Shape, FontTypeface properties made visible in block editor.
+      srcCompVersion = 4;
     }
     return srcCompVersion;
   }
@@ -1438,6 +1549,118 @@ public final class YoungAndroidFormUpgrader {
       // Added PasswordDialog
       srcCompVersion = 6;
     }
+    if (srcCompVersion < 7) {
+      // Added SetNotifierLength, GetBackgroundColor methods
+      srcCompVersion = 7;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeNxtColorSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeNxtDirectCommandsProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added SetBluetoothClient, GetBluetoothClient methods
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeNxtDriveProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added GetDriveMotors, GetWheelDiameter, SetBluetoothClient, GetBluetoothClient methods
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeNxtLightSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeNxtSoundSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeNxtTouchSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeNxtUltrasonicSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeEv3MotorsProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added GetMotorPorts, GetWheelDiameter methods
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeEv3ColorSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added GetSensorPort method
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeEv3GyroSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added GetSensorPort method
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeEv3TouchSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added GetSensorPort method
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
+
+  private static int upgradeEv3UltrasonicSensorProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // Added GetSensorPort method
+      srcCompVersion = 2;
+    }
     return srcCompVersion;
   }
 
@@ -1469,6 +1692,10 @@ public final class YoungAndroidFormUpgrader {
       // The Stop method was created.
       // No properties need to be modified to upgrade to version 6.
       srcCompVersion = 6;
+    }
+    if (srcCompVersion < 7) {
+      // Added GetSource, GetVolume methods
+      srcCompVersion = 7;
     }
     return srcCompVersion;
   }
@@ -1549,6 +1776,10 @@ public final class YoungAndroidFormUpgrader {
     if (srcCompVersion < 6) {
       // ReadOnly property was added
       srcCompVersion = 6;
+    }
+    if (srcCompVersion < 7) {
+      // TextAlignment, FontBold, FontItalic, FontTypeface properties made visible in block editor.
+      srcCompVersion = 7;
     }
     return srcCompVersion;
   }
@@ -1641,6 +1872,10 @@ public final class YoungAndroidFormUpgrader {
       // The ScaleUnits and ShowScale properties were added
       srcCompVersion = 5;
     }
+    if (srcCompVersion < 6) {
+      // Added GetLocationSensor method
+      srcCompVersion = 6;
+    }
     return srcCompVersion;
   }
   
@@ -1704,6 +1939,10 @@ public final class YoungAndroidFormUpgrader {
       // Version 2
       // The GotGeoJSON and GeoJSONError events were renamed in the blocks editor.
       srcCompVersion = 2;
+    }
+    if (srcCompVersion < 3) {
+      // Added SetSource method
+      srcCompVersion = 3;
     }
     return srcCompVersion;
   }

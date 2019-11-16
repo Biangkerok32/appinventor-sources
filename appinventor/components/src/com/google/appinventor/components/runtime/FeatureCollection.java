@@ -62,6 +62,7 @@ public class FeatureCollection extends MapFeatureContainerBase implements MapFea
 
   @Override
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_GEOJSON_TYPE)
+  @SimpleProperty
   public void Source(String source) {
     // Only set from the designer. Blocks will call {@link #LoadFromURL} instead.
     this.source = source;

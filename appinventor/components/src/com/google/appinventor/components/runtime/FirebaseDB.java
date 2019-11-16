@@ -242,8 +242,7 @@ public class FirebaseDB extends AndroidNonvisibleComponent implements Component 
    * @return the URL for this Firebase
    */
   @SimpleProperty(category = PropertyCategory.BEHAVIOR,
-    description = "Gets the URL for this FirebaseDB.",
-    userVisible = false)
+    description = "Gets the URL for this FirebaseDB.")
   public String FirebaseURL() {
     if (useDefault) {
       return "DEFAULT";
@@ -345,7 +344,7 @@ public class FirebaseDB extends AndroidNonvisibleComponent implements Component 
    *
    * @return the JWT used to authenticate users on the default Firebase
    */
-  @SimpleProperty(category = PropertyCategory.BEHAVIOR, userVisible = false)
+  @SimpleProperty(category = PropertyCategory.BEHAVIOR)
   public String FirebaseToken() {
     return firebaseToken;
   }
@@ -365,7 +364,7 @@ public class FirebaseDB extends AndroidNonvisibleComponent implements Component 
 
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
     defaultValue = "False")
-  @SimpleProperty(userVisible = false,
+  @SimpleProperty(
     description = "If true, variables will retain their values when off-line and the App " +
     "exits. Values will be uploaded to Firebase the next time the App is " +
     "run while connected to the network. This is useful for applications " +
@@ -390,6 +389,11 @@ public class FirebaseDB extends AndroidNonvisibleComponent implements Component 
       persist = value;
       resetListener();
     }
+  }
+
+  @SimpleProperty
+  public boolean Persist() {
+    return persist;
   }
 
   private void resetListener() {

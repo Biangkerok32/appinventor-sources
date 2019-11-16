@@ -174,6 +174,11 @@ public final class Image extends AndroidViewComponent {
       view.setScaleType(ImageView.ScaleType.FIT_CENTER);
   }
 
+  @SimpleProperty
+  public boolean ScalePictureToFit() {
+    return view.getScaleType() == ImageView.ScaleType.FIT_XY;
+  }
+
   /**
    * Animation property setter method.
    *

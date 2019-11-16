@@ -447,6 +447,7 @@ public class Map extends MapFeatureContainerBase implements MapEventListener {
     }
   }
 
+  @SimpleProperty
   public LocationSensor LocationSensor() {
     return sensor;
   }

@@ -54,7 +54,7 @@ public class TableArrangement extends AndroidViewComponent
    *
    * @return  number of columns in this layout
    */
-  @SimpleProperty(userVisible = false)
+  @SimpleProperty
   public int Columns() {
     return viewLayout.getNumColumns();
   }
@@ -66,7 +66,7 @@ public class TableArrangement extends AndroidViewComponent
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_NON_NEGATIVE_INTEGER,
       defaultValue = "2")
-  @SimpleProperty(userVisible = false)
+  @SimpleProperty
   public void Columns(int numColumns) {
     viewLayout.setNumColumns(numColumns);
   }
@@ -76,7 +76,7 @@ public class TableArrangement extends AndroidViewComponent
    *
    * @return  number of rows in this layout
    */
-  @SimpleProperty(userVisible = false)
+  @SimpleProperty
   public int Rows() {
     return viewLayout.getNumRows();
   }
@@ -88,7 +88,7 @@ public class TableArrangement extends AndroidViewComponent
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_NON_NEGATIVE_INTEGER,
       defaultValue = "2")
-  @SimpleProperty(userVisible = false)
+  @SimpleProperty
   public void Rows(int numRows) {
     viewLayout.setNumRows(numRows);
   }

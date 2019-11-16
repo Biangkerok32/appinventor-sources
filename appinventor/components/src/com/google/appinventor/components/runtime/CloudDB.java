@@ -390,6 +390,7 @@ public final class CloudDB extends AndroidNonvisibleComponent implements Compone
 
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING,
     defaultValue = "DEFAULT")
+  @SimpleProperty
   public void RedisServer(String servername) {
     if (servername.equals("DEFAULT")) {
       if (!useDefault) {
@@ -442,6 +443,7 @@ public final class CloudDB extends AndroidNonvisibleComponent implements Compone
 
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_INTEGER,
     defaultValue = "6381")
+  @SimpleProperty
   public void RedisPort(int port) {
     if (port != redisPort) {
       redisPort = port;
@@ -474,6 +476,7 @@ public final class CloudDB extends AndroidNonvisibleComponent implements Compone
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING,
       defaultValue = "")
+  @SimpleProperty
   public void ProjectID(String id) {
     if (!projectID.equals(id)) {
       projectID = id;
@@ -518,6 +521,7 @@ public final class CloudDB extends AndroidNonvisibleComponent implements Compone
 
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
            defaultValue = "True")
+  @SimpleProperty(category = PropertyCategory.BEHAVIOR)
   public void UseSSL(boolean useSSL) {
     if (this.useSSL != useSSL) {
       this.useSSL = useSSL;
@@ -525,7 +529,7 @@ public final class CloudDB extends AndroidNonvisibleComponent implements Compone
     }
   }
 
-  @SimpleProperty(category = PropertyCategory.BEHAVIOR, userVisible = false,
+  @SimpleProperty(category = PropertyCategory.BEHAVIOR,
           description = "Set to true to use SSL to talk to CloudDB/Redis server. " +
               "This should be set to True for the \"DEFAULT\" server.")
   public boolean UseSSL() {
