@@ -1517,10 +1517,7 @@ Blockly.Versioning.AllUpgradeMaps =
       Blockly.Versioning.changeEventName('FeatureCollection', 'GeoGeoJSON', 'GotFeatures'),
       Blockly.Versioning.changeEventName('FeatureCollection', 'ErrorLoadingFeatureCollection', 'LoadError'),
       Blockly.Versioning.changeEventName('FeatureCollection', 'LoadedFeatureCollection', 'GotFeatures')
-    ],
-
-    // AI2: Added SetSource method
-    3: "noUpgrade"
+    ]
   },
 
   "File": {
@@ -2477,7 +2474,7 @@ Blockly.Versioning.AllUpgradeMaps =
     //This is initial version. Placeholder for future upgrades
     1: "noUpgrade",
 
-    // AI2: Columns, Rows properties made visible in block editor.
+    // AI2: Added GetColumns, GetRows methods
     2: "noUpgrade"
 
   }, // End TableArrangementupgraders

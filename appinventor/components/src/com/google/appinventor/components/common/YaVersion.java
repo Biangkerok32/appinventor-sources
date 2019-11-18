@@ -782,9 +782,7 @@ public class YaVersion {
   // - GotGeoJSON event was renamed to GotFeatures
   // - ErrorLoadingFeatureCollection event was removed
   // - LoadedFeatureCollection event was removed
-  // For FEATURE_COLLECTION_COMPONENT_VERSION 3:
-  // - Added SetSource method
-  public static final int FEATURE_COLLECTION_COMPONENT_VERSION = 3;
+  public static final int FEATURE_COLLECTION_COMPONENT_VERSION = 2;
 
   // For FILE_COMPONENT_VERSION 2:
   // - The AfterFileSaved event was added.
@@ -1167,7 +1165,7 @@ public class YaVersion {
   public static final int SWITCH_COMPONENT_VERSION = 2;
 
   // For TABLEARRANGEMENT_COMPONENT_VERSION 2:
-  // - Columns, Rows properties made visible in block editor.
+  // - Added GetColumns, GetRows methods
   public static final int TABLEARRANGEMENT_COMPONENT_VERSION = 2;
 
   // For TEXTBOX_COMPONENT_VERSION 2:

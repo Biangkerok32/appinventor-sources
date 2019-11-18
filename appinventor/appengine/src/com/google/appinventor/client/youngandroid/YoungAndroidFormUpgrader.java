@@ -1466,7 +1466,7 @@ public final class YoungAndroidFormUpgrader {
   private static int upgradeTableArrangementProperties(Map<String, JSONValue> componentProperties,
       int srcCompVersion) {
     if (srcCompVersion < 2) {
-      // Columns, Rows properties made visible in block editor.
+      // Added GetColumns, GetRows methods
       srcCompVersion = 2;
     }
     return srcCompVersion;
@@ -1939,10 +1939,6 @@ public final class YoungAndroidFormUpgrader {
       // Version 2
       // The GotGeoJSON and GeoJSONError events were renamed in the blocks editor.
       srcCompVersion = 2;
-    }
-    if (srcCompVersion < 3) {
-      // Added SetSource method
-      srcCompVersion = 3;
     }
     return srcCompVersion;
   }

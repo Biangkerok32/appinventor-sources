@@ -66,7 +66,7 @@ public class TableArrangement extends AndroidViewComponent
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_NON_NEGATIVE_INTEGER,
       defaultValue = "2")
-  @SimpleProperty
+  @SimpleProperty(userVisible = false)
   public void Columns(int numColumns) {
     viewLayout.setNumColumns(numColumns);
   }
@@ -88,7 +88,7 @@ public class TableArrangement extends AndroidViewComponent
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_NON_NEGATIVE_INTEGER,
       defaultValue = "2")
-  @SimpleProperty
+  @SimpleProperty(userVisible = false)
   public void Rows(int numRows) {
     viewLayout.setNumRows(numRows);
   }
