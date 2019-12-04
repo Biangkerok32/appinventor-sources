@@ -611,7 +611,9 @@ public class YaVersion {
   // - AccelerometerSensor.Sensitivty property was added.
   //For ACCELEROMETERSENSOR_COMPONENT_VERSION 4:
   // - Added the LegacyMode property.
-  public static final int ACCELEROMETERSENSOR_COMPONENT_VERSION = 4;
+  //For ACCELEROMETERSENSOR_COMPONENT_VERSION 5:
+  // - LegacyMode property made visible in block editor.
+  public static final int ACCELEROMETERSENSOR_COMPONENT_VERSION = 5;
 
   // For ACTIVITYSTARTER_COMPONENT_VERSION 2:
   // - The ActivityStarter.DataType, ActivityStarter.ResultType, and ActivityStarter.ResultUri
@@ -677,7 +679,9 @@ public class YaVersion {
   // For BUTTON_COMPONENT_VERSION 6:
   // - Added TouchUp and TouchDown events
   // - FontSize, FontBold, FontItalic properties made visible in block editor
-  public static final int BUTTON_COMPONENT_VERSION = 6;
+  // For BUTTON_COMPONENT_VERSION 7:
+  // - TextAlignment, Shape, FontTypeface properties made visible in block editor.
+  public static final int BUTTON_COMPONENT_VERSION = 7;
 
   public static final int CAMCORDER_COMPONENT_VERSION = 1;
 
@@ -719,7 +723,9 @@ public class YaVersion {
 
   // For CHECKBOX_COMPONENT_VERSION 2:
   // - The Value property was renamed to Checked.
-  public static final int CHECKBOX_COMPONENT_VERSION = 2;
+  // For CHECKBOX_COMPONENT_VERSION 3:
+  // - FontBold, FontItalic, FontTypeface properties made visible in block editor.
+  public static final int CHECKBOX_COMPONENT_VERSION = 3;
 
   // For CIRCLE_COMPONENT_VERSION 1:
   // - Initial implementation of Circle for Maps
@@ -747,7 +753,9 @@ public class YaVersion {
   // - For Eclair and up, we now use ContactsContract instead of the deprecated Contacts.
   // For CONTACTPICKER_COMPONENT_VERSION 6:
   // - The ContactUri property was added
-  public static final int CONTACTPICKER_COMPONENT_VERSION = 6;
+  // For CONTACTPICKER_COMPONENT_VERSION 7:
+  // - TextAlignment, Shape, FontTypeface properties made visible in block editor.
+  public static final int CONTACTPICKER_COMPONENT_VERSION = 7;
 
   // For DATEPICKER_COMPONENT_VERSION 2:
   // The datepicker dialog was updated to show the current date
@@ -757,13 +765,17 @@ public class YaVersion {
   // datepicker dialog.
   // For DATEPICKER_COMPONENT_VERSION 3:
   // - SetDateToDisplayFromInstant, and Instant property are added.
-  public static final int DATEPICKER_COMPONENT_VERSION = 3;
+  // For DATEPICKER_COMPONENT_VERSION 4:
+  // - TextAlignment, Shape, FontTypeface properties made visible in block editor.
+  public static final int DATEPICKER_COMPONENT_VERSION = 4;
 
   // For EMAILPICKER_COMPONENT_VERSION 2:
   // - The Alignment property was renamed to TextAlignment.
   // For EMAILPICKER_COMPONENT_VERSION 3:
   // - RequestFocus function was added (via TextBoxBase)
-  public static final int EMAILPICKER_COMPONENT_VERSION = 3;
+  // For EMAILPICKER_COMPONENT_VERSION 4:
+  // - TextAlignment, FontBold, FontItalic, FontTypeface properties made visible in block editor.
+  public static final int EMAILPICKER_COMPONENT_VERSION = 4;
 
   // For FEATURE_COLLECTION_COMPONENT_VERSION 1:
   // - Initial FeatureCollection implementation for Maps
@@ -867,7 +879,9 @@ public class YaVersion {
   // - The RotationAngle property was added.
   // For IMAGE_COMPONENT_VERSION 3:
   // - Scaling Property added, but hidden for now
-  public static final int IMAGE_COMPONENT_VERSION = 3;
+  // For IMAGE_COMPONENT_VERSION 4:
+  // - Added GetScalePictureToFit method
+  public static final int IMAGE_COMPONENT_VERSION = 4;
 
   // For IMAGEPICKER_COMPONENT_VERSION 2:
   // - The Alignment property was renamed to TextAlignment.
@@ -878,8 +892,9 @@ public class YaVersion {
   // For IMAGEPICKER_COMPONENT_VERSION 5:
   // - The ImagePath property was changed to Selection, and now returns a file path to
   //   external storage
-
-  public static final int IMAGEPICKER_COMPONENT_VERSION = 5;
+  // For IMAGEPICKER_COMPONENT_VERSION 6:
+  // - TextAlignment, Shape, FontTypeface properties made visible in block editor.
+  public static final int IMAGEPICKER_COMPONENT_VERSION = 6;
 
   // For IMAGESPRITE_COMPONENT_VERSION 2:
   // - The Rotates property was added.
@@ -902,8 +917,9 @@ public class YaVersion {
   // - The HTML format is defined.
   // For LABEL_COMPONENT_VERSION 5:
   // - The HTMLContent property is defined.
-
-  public static final int LABEL_COMPONENT_VERSION = 5;
+  // For LABEL_COMPONENT_VERSION 6:
+  // - TextAlignment,FontBold FontItalic, FontTypeface, HTMLFormat properties made visible in block editor.
+  public static final int LABEL_COMPONENT_VERSION = 6;
 
   // For LINESTRING_COMPONENT_VERSION 1:
   // - Initial LineString implementation for Maps
@@ -928,7 +944,9 @@ public class YaVersion {
   // - Added title property
   // For LISTPICKER_COMPONENT_VERSION 9:
   // - Added ItemTextColor, ItemBackgroundColor
-  public static final int LISTPICKER_COMPONENT_VERSION = 9;
+  // For LISTPICKER_COMPONENT_VERSION 10:
+  // - TextAlignment, Shape, FontTypeface properties made visible in block editor.
+  public static final int LISTPICKER_COMPONENT_VERSION = 10;
 
   // For LISTVIEW_COMPONENT_VERSION 1:
   // - Initial version.
@@ -963,7 +981,9 @@ public class YaVersion {
   // For MAP_COMPONENT_VERSION 5:
   // - Added ShowScale property
   // - Added ScaleUnits property
-  public static final int MAP_COMPONENT_VERSION = 5;
+  // For MAP_COMPONENT_VERSION 6:
+  // - Added GetLocationSensor method
+  public static final int MAP_COMPONENT_VERSION = 6;
 
   // For MARKER_COMPONENT_VERSION 1:
   // - Initial Marker implementation using OpenStreetMap
@@ -986,31 +1006,57 @@ public class YaVersion {
   // - Added TextInputCanceled & ChoosingCanceled event
   // For NOTIFIER_COMPONENT_VERSION 6:
   // - Added a ShowPasswordDialog method
-  public static final int NOTIFIER_COMPONENT_VERSION = 6;
+  // For NOTIFIER_COMPONENT_VERSION 7:
+  // - Added SetNotifierLength, GetBackgroundColor methods
+  public static final int NOTIFIER_COMPONENT_VERSION = 7;
 
-  public static final int NXT_COLORSENSOR_COMPONENT_VERSION = 1;
+  // For NXT_COLORSENSOR_COMPONENT_VERSION 2:
+  // - Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+  public static final int NXT_COLORSENSOR_COMPONENT_VERSION = 2;
 
-  public static final int NXT_DIRECT_COMMANDS_COMPONENT_VERSION = 1;
+  // For NXT_DIRECT_COMMANDS_COMPONENT_VERSION 2:
+  // - Added SetBluetoothClient, GetBluetoothClient methods
+  public static final int NXT_DIRECT_COMMANDS_COMPONENT_VERSION = 2;
 
-  public static final int NXT_DRIVE_COMPONENT_VERSION = 1;
+  // For NXT_DRIVE_COMPONENT_VERSION 2:
+  // - Added GetDriveMotors, GetWheelDiameter, SetBluetoothClient, GetBluetoothClient methods
+  public static final int NXT_DRIVE_COMPONENT_VERSION = 2;
 
-  public static final int NXT_LIGHTSENSOR_COMPONENT_VERSION = 1;
+  // For NXT_LIGHTSENSOR_COMPONENT_VERSION 2:
+  // - Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+  public static final int NXT_LIGHTSENSOR_COMPONENT_VERSION = 2;
 
-  public static final int NXT_SOUNDSENSOR_COMPONENT_VERSION = 1;
+  // For NXT_SOUNDSENSOR_COMPONENT_VERSION 2:
+  // - Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+  public static final int NXT_SOUNDSENSOR_COMPONENT_VERSION = 2;
 
-  public static final int NXT_TOUCHSENSOR_COMPONENT_VERSION = 1;
+  // For NXT_TOUCHSENSOR_COMPONENT_VERSION 2:
+  // - Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+  public static final int NXT_TOUCHSENSOR_COMPONENT_VERSION = 2;
 
-  public static final int NXT_ULTRASONICSENSOR_COMPONENT_VERSION = 1;
+  // For NXT_ULTRASONICSENSOR_COMPONENT_VERSION 2:
+  // - Added SetSensorPort, GetSensorPort, SetBluetoothClient, GetBluetoothClient methods
+  public static final int NXT_ULTRASONICSENSOR_COMPONENT_VERSION = 2;
 
-  public static final int EV3_MOTORS_COMPONENT_VERSION = 1;
+  // For EV3_MOTORS_COMPONENT_VERSION 2:
+  // - Added GetMotorPorts, GetWheelDiameter methods
+  public static final int EV3_MOTORS_COMPONENT_VERSION = 2;
 
-  public static final int EV3_COLORSENSOR_COMPONENT_VERSION = 1;
+  // For EV3_COLORSENSOR_COMPONENT_VERSION 2:
+  // - Added GetSensorPort method
+  public static final int EV3_COLORSENSOR_COMPONENT_VERSION = 2;
 
-  public static final int EV3_GYROSENSOR_COMPONENT_VERSION = 1;
+  // For EV3_GYROSCOPE_COMPONENT_VERSION 2:
+  // - Added GetSensorPort method
+  public static final int EV3_GYROSENSOR_COMPONENT_VERSION = 2;
 
-  public static final int EV3_TOUCHSENSOR_COMPONENT_VERSION = 1;
+  // For EV3_TOUCHSENSOR_COMPONENT_VERSION 2:
+  // - Added GetSensorPort method
+  public static final int EV3_TOUCHSENSOR_COMPONENT_VERSION = 2;
 
-  public static final int EV3_ULTRASONICSENSOR_COMPONENT_VERSION = 1;
+  // For EV3_ULTRASONICSENSOR_COMPONENT_VERSION 2:
+  // - Added GetSensorPort method
+  public static final int EV3_ULTRASONICSENSOR_COMPONENT_VERSION = 2;
 
   public static final int EV3_SOUND_COMPONENT_VERSION = 1;
 
@@ -1029,7 +1075,9 @@ public class YaVersion {
   // - Added RequestFocus Function (via TextBoxBase)
   // For PASSWORDTEXTBOX_COMPONENT_VERSION 4:
   // - Added PasswordVisible property
-  public static final int PASSWORDTEXTBOX_COMPONENT_VERSION = 4;
+  // For PASSWORDTEXTBOX_COMPONENT_VERSION 5:
+  // - TextAlignment, FontBold, FontItalic, FontTypeface properties made visible in block editor.
+  public static final int PASSWORDTEXTBOX_COMPONENT_VERSION = 5;
 
   // For PEDOMETER_COMPONENT_VERSION 2:
   // - The step sensing algorithm was updated to be more accurate.
@@ -1071,8 +1119,9 @@ public class YaVersion {
   // For PLAYER_COMPONENT_VERSION 6:
   // - The PlayInForeground property was added.
   // - The OtherPlayerStarted event was added.
-
-  public static final int PLAYER_COMPONENT_VERSION = 6;
+  // For PLAYER_COMPONENT_VERSION 7:
+  // - Added GetVolume method
+  public static final int PLAYER_COMPONENT_VERSION = 7;
 
   // For POLYGON_COMPONENT_VERSION 1:
   // - Initial Polygon implementation for Maps
@@ -1115,9 +1164,13 @@ public class YaVersion {
 
   // For SWITCH_COMPONENT_VERSION 1
   //  - Initial Version
-  public static final int SWITCH_COMPONENT_VERSION = 1;
+  // For SWITCH_COMPONENT_VERSION 2:
+  // - FontBold, FontItalic, FontTypeface properties made visible in block editor.
+  public static final int SWITCH_COMPONENT_VERSION = 2;
 
-  public static final int TABLEARRANGEMENT_COMPONENT_VERSION = 1;
+  // For TABLEARRANGEMENT_COMPONENT_VERSION 2:
+  // - Added GetColumns, GetRows methods
+  public static final int TABLEARRANGEMENT_COMPONENT_VERSION = 2;
 
   // For TEXTBOX_COMPONENT_VERSION 2:
   // - The TextBox.NumbersOnly property was added.
@@ -1130,7 +1183,9 @@ public class YaVersion {
   // - RequestFocus method was added
   // For TEXTBOX_COMPONENT_VERSION 6:
   // - ReadOnly property was added
-  public static final int TEXTBOX_COMPONENT_VERSION = 6;
+  // For TEXTBOX_COMPONENT_VERSION 7:
+  // - TextAlignment, FontBold, FontItalic, FontTypeface properties made visible in block editor.
+  public static final int TEXTBOX_COMPONENT_VERSION = 7;
 
   // For TEXTING_COMPONENT_VERSION 2:
   // Texting over Wifi was implemented using Google Voice
@@ -1169,7 +1224,9 @@ public class YaVersion {
   // timepicker dialog.
   // For TIMEPICKER_COMPONENT_VERSION 3:
   // - SetTimeToDisplayFromInstant, and Instant property are added.
-  public static final int TIMEPICKER_COMPONENT_VERSION = 3;
+  // For TIMEPICKER_COMPONENT_VERSION 4:
+  // - TextAlignment, Shape, FontTypeface properties made visible in block editor.
+  public static final int TIMEPICKER_COMPONENT_VERSION = 4;
 
   // For TINYDB_COMPONENT_VERSION 2:
   // - Added Property: Namespace
@@ -1240,7 +1297,9 @@ public class YaVersion {
   // - The Volume property (setter only) was added to the VideoPlayer.
   // For VIDEOPLAYER_COMPONENT_VERSION 6:
   // - The Stop method was added to the VideoPlayer.
-  public static final int VIDEOPLAYER_COMPONENT_VERSION = 6;
+  // For VIDEOPLAYER_COMPONENT_VERSION 7:
+  // - Added GetSource, GetVolume methods
+  public static final int VIDEOPLAYER_COMPONENT_VERSION = 7;
 
   public static final int VOTING_COMPONENT_VERSION = 1;
 

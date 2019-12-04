@@ -163,8 +163,7 @@ public abstract class ToggleBase<T extends CompoundButton> extends AndroidViewCo
    * @return  {@code true} indicates bold, {@code false} normal
    */
   @SimpleProperty(
-          category = PropertyCategory.APPEARANCE,
-          userVisible = false)
+          category = PropertyCategory.APPEARANCE)
   public boolean FontBold() {
     return bold;
   }
@@ -177,8 +176,7 @@ public abstract class ToggleBase<T extends CompoundButton> extends AndroidViewCo
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
           defaultValue = "False")
-  @SimpleProperty(
-          userVisible = false)
+  @SimpleProperty
   public void FontBold(boolean bold) {
     this.bold = bold;
     TextViewUtil.setFontTypeface(view, fontTypeface, bold, italic);
@@ -192,8 +190,7 @@ public abstract class ToggleBase<T extends CompoundButton> extends AndroidViewCo
    * @return  {@code true} indicates italic, {@code false} normal
    */
   @SimpleProperty(
-          category = PropertyCategory.APPEARANCE,
-          userVisible = false)
+          category = PropertyCategory.APPEARANCE)
   public boolean FontItalic() {
     return italic;
   }
@@ -206,8 +203,7 @@ public abstract class ToggleBase<T extends CompoundButton> extends AndroidViewCo
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
           defaultValue = "False")
-  @SimpleProperty(
-          userVisible = false)
+  @SimpleProperty
   public void FontItalic(boolean italic) {
     this.italic = italic;
     TextViewUtil.setFontTypeface(view, fontTypeface, bold, italic);
@@ -246,8 +242,7 @@ public abstract class ToggleBase<T extends CompoundButton> extends AndroidViewCo
    *          {@link Component#TYPEFACE_MONOSPACE}
    */
   @SimpleProperty(
-          category = PropertyCategory.APPEARANCE,
-          userVisible = false)
+          category = PropertyCategory.APPEARANCE)
   public int FontTypeface() {
     return fontTypeface;
   }
@@ -263,8 +258,7 @@ public abstract class ToggleBase<T extends CompoundButton> extends AndroidViewCo
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_TYPEFACE,
           defaultValue = Component.TYPEFACE_DEFAULT + "")
-  @SimpleProperty(
-          userVisible = false)
+  @SimpleProperty
   public void FontTypeface(int typeface) {
     fontTypeface = typeface;
     TextViewUtil.setFontTypeface(view, fontTypeface, bold, italic);

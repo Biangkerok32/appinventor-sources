@@ -411,7 +411,7 @@ public int getDeviceDefaultOrientation() {
 
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
     defaultValue = "False")
-  @SimpleProperty(userVisible = false,
+  @SimpleProperty(
     description="Prior to the release that added this property the AccelerometerSensor " +
     "component passed through sensor values directly as received from the " +
     "Android system. However these values do not compensate for tablets " +
@@ -429,6 +429,7 @@ public int getDeviceDefaultOrientation() {
     this.legacyMode = legacyMode;
   }
 
+  @SimpleProperty
   public boolean LegacyMode() {
     return legacyMode;
   }

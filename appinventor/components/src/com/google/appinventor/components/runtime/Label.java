@@ -136,8 +136,7 @@ public final class Label extends AndroidViewComponent {
    *          {@link Component#ALIGNMENT_OPPOSITE}
    */
   @SimpleProperty(
-      category = PropertyCategory.APPEARANCE,
-      userVisible = false)
+      category = PropertyCategory.APPEARANCE)
   public int TextAlignment() {
     return textAlignment;
   }
@@ -153,8 +152,7 @@ public final class Label extends AndroidViewComponent {
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_TEXTALIGNMENT,
       defaultValue = Component.ALIGNMENT_NORMAL + "")
-  @SimpleProperty(
-      userVisible = false)
+  @SimpleProperty
   public void TextAlignment(int alignment) {
     this.textAlignment = alignment;
     TextViewUtil.setAlignment(view, alignment, false);
@@ -198,8 +196,7 @@ public final class Label extends AndroidViewComponent {
    * @return  {@code true} indicates bold, {@code false} normal
    */
   @SimpleProperty(
-      category = PropertyCategory.APPEARANCE,
-      userVisible = false)
+      category = PropertyCategory.APPEARANCE)
   public boolean FontBold() {
     return bold;
   }
@@ -212,8 +209,7 @@ public final class Label extends AndroidViewComponent {
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
       defaultValue = "False")
-  @SimpleProperty(
-      userVisible = false)
+  @SimpleProperty
   public void FontBold(boolean bold) {
     this.bold = bold;
     TextViewUtil.setFontTypeface(view, fontTypeface, bold, italic);
@@ -227,8 +223,7 @@ public final class Label extends AndroidViewComponent {
    * @return  {@code true} indicates italic, {@code false} normal
    */
   @SimpleProperty(
-      category = PropertyCategory.APPEARANCE,
-      userVisible = false)
+      category = PropertyCategory.APPEARANCE)
   public boolean FontItalic() {
     return italic;
   }
@@ -241,8 +236,7 @@ public final class Label extends AndroidViewComponent {
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
       defaultValue = "False")
-  @SimpleProperty(
-      userVisible = false)
+  @SimpleProperty
   public void FontItalic(boolean italic) {
     this.italic = italic;
     TextViewUtil.setFontTypeface(view, fontTypeface, bold, italic);
@@ -319,8 +313,7 @@ private void setLabelMargins(boolean hasMargins) {
    *          {@link Component#TYPEFACE_MONOSPACE}
    */
   @SimpleProperty(
-      category = PropertyCategory.APPEARANCE,
-      userVisible = false)
+      category = PropertyCategory.APPEARANCE)
   public int FontTypeface() {
     return fontTypeface;
   }
@@ -336,8 +329,7 @@ private void setLabelMargins(boolean hasMargins) {
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_TYPEFACE,
       defaultValue = Component.TYPEFACE_DEFAULT + "")
-  @SimpleProperty(
-      userVisible = false)
+  @SimpleProperty
   public void FontTypeface(int typeface) {
     fontTypeface = typeface;
     TextViewUtil.setFontTypeface(view, fontTypeface, bold, italic);
@@ -409,7 +401,7 @@ private void setLabelMargins(boolean hasMargins) {
    */
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_BOOLEAN,
       defaultValue = "False")
-  @SimpleProperty(userVisible = false)
+  @SimpleProperty
   public void HTMLFormat(boolean fmt) {
     htmlFormat = fmt;
     if (htmlFormat) {
